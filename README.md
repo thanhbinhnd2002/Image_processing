@@ -1,7 +1,3 @@
-Dưới đây là một ví dụ về README cho dự án của bạn:
-
----
-
 # Image Processing Project: Faster-RCNN with MobileNetV3 Backbone
 
 ## Giới thiệu
@@ -30,12 +26,7 @@ Dự án này sử dụng mô hình **Faster-RCNN** với **MobileNetV3** làm b
 1. **Clone repository**:
     ```bash
     git clone https://github.com/yourusername/image-processing-project.git
-    cd image-processing-project
-    ```
-
-2. **Cài đặt các thư viện cần thiết**:
-    ```bash
-    pip install -r requirements.txt
+    
     ```
 
 ## Cách sử dụng
@@ -49,13 +40,14 @@ Dự án này sử dụng mô hình **Faster-RCNN** với **MobileNetV3** làm b
 2. **Dự đoán đối tượng trong ảnh**:
    Sau khi huấn luyện xong, bạn có thể sử dụng mô hình để nhận diện đối tượng trong các ảnh mới:
     ```bash
-    python detect.py --image_path <đường dẫn đến ảnh> --model_path <đường dẫn đến mô hình đã huấn luyện>
+    python inference_csv.py --image_path <đường dẫn đến ảnh> --model_path <đường dẫn đến mô hình đã huấn luyện>
     ```
+    Sau khi huấn 
 
-3. **Đánh giá mô hình**: 
-   Bạn có thể sử dụng tập dữ liệu kiểm tra để đánh giá hiệu suất mô hình:
+3. **Dự đoán đối tượng trong video**: 
+   Sau khi huấn luyện xong, bạn có thể sử dụng mô hình để nhận diện đối tượng trong các video mới::
     ```bash
-    python evaluate.py --dataset_path <đường dẫn đến dữ liệu kiểm tra> --model_path <đường dẫn đến mô hình đã huấn luyện>
+    python inference_r_cnn_video.py --dataset_path <đường dẫn đến dữ liệu kiểm tra> --checkpoint_path <đường dẫn đến mô hình đã huấn luyện>
     ```
 
 ## Cấu trúc thư mục
@@ -67,7 +59,7 @@ image-processing-project/
 ├── models/                # Mô hình đã huấn luyện
 ├── scripts/               # Các script huấn luyện, dự đoán, đánh giá
 │   ├── train.py
-│   ├── detect.py
+│   ├── inference.py
 │   └── evaluate.py
 ├── requirements.txt       # Các thư viện cần thiết
 └── README.md              # Tài liệu dự án
@@ -75,8 +67,7 @@ image-processing-project/
 
 ## Liên hệ
 
-Nếu bạn có bất kỳ câu hỏi hoặc góp ý nào, vui lòng liên hệ qua email: [your-email@example.com].
+Nếu bạn có bất kỳ câu hỏi hoặc góp ý nào, vui lòng liên hệ qua email: phamthanhbinh2002nguyenkhuyen@gmail.com.
 
 ---
 
-Hy vọng README này sẽ hữu ích cho dự án của bạn!
