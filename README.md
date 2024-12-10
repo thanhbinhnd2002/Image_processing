@@ -47,7 +47,7 @@ Dự án này sử dụng mô hình **Faster-RCNN** với **MobileNetV3** làm b
 3. **Dự đoán đối tượng trong video**: 
    Sau khi huấn luyện xong, bạn có thể sử dụng mô hình để nhận diện đối tượng trong các video mới::
     ```bash
-    python inference_r_cnn_video.py --dataset_path <đường dẫn đến dữ liệu kiểm tra> --checkpoint_path <đường dẫn đến mô hình đã huấn luyện>
+    python Inference_Faster_R_CNN_Video.py --dataset_path <đường dẫn đến dữ liệu kiểm tra> --checkpoint_path <đường dẫn đến mô hình đã huấn luyện>
     ```
 
 ## Cấu trúc thư mục
