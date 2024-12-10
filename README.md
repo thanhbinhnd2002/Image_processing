@@ -25,7 +25,7 @@ Dự án này sử dụng mô hình **Faster-RCNN** với **MobileNetV3** làm b
 
 1. **Clone repository**:
     ```bash
-    git clone https://github.com/yourusername/image-processing-project.git
+    git clone https://github.com/thanhbinhnd2002/Image_processing.git
     
     ```
 
