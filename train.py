@@ -61,6 +61,13 @@ def get_args():
 
 
 def train(args):
+    if type(args) != argparse.Namespace:
+        parser = argparse.ArgumentParser(description="Train Faster RCNN model for PASCAL VOC dataset")
+        parser.add_argument("--epochs", "-e", type=int, default=20, help="Number of epochs")
+        parser.add_argument("--batch-size", "-b", type=int, default=8)
+        parser.add_argument("--lr", "-l", type=float, default=1e-3)
+        args = parser.parse_args()
+
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     transform = Compose([
         ToTensor(),
