@@ -56,12 +56,12 @@ Dự án này sử dụng mô hình **Faster-RCNN** với **MobileNetV3** làm b
 image-processing-project/
 │
 ├── data/                  # Dữ liệu huấn luyện và kiểm tra
-├── models/                # Mô hình đã huấn luyện
+├── trained_models/                # Mô hình đã huấn luyện
 ├── scripts/               # Các script huấn luyện, dự đoán, đánh giá
 │   ├── train.py
 │   ├── inference.py
 │   └── evaluate.py
-├── requirements.txt       # Các thư viện cần thiết
+├── tensorboard      # lưu quá trình train
 └── README.md              # Tài liệu dự án
 ```
 
