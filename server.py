@@ -5,6 +5,7 @@ from flask_socketio import SocketIO, emit
 from flask_cors import CORS
 import threading
 from Inference_Faster_R_CNN_Image import train as detect_image
+from Inference_Faster_R_CNN_Video import train as detect_video
 from train import train as train_main_model
 from werkzeug.utils import secure_filename
 
@@ -50,8 +51,8 @@ def start_training():
     thread.start()
     return jsonify({"status": "Training started"}), 202
 
-@app.route('/detect', methods=['POST'])
-def detect():
+@app.route('/detect-image', methods=['POST'])
+def detect_i():
     # Handle image upload
     if 'file' not in request.files:
         return jsonify({"error": "No image uploaded"}), 400
@@ -60,12 +61,33 @@ def detect():
     file_path = os.path.join(UPLOAD_FOLDER, secure_filename(file.filename))
     file.save(file_path)
 
+
     conf_threshold = float(request.form.get("conf_threshold", 0.3))
     args_dict = {"file_path": file_path, "conf_threshold": conf_threshold}
     # Perform detection (replace with actual detection logic)
     result_path = detect_image(args_dict)  # Your detection logic here
 
     return send_file(result_path, mimetype='image/jpeg')
+
+@app.route('/detect-video', methods=['POST'])
+def detect_v():
+    # Handle image upload
+    if 'file' not in request.files:
+        return jsonify({"error": "No video uploaded"}), 400
+
+    file = request.files['file']
+    file_path = os.path.join(UPLOAD_FOLDER, secure_filename(file.filename))
+    file.save(file_path)
+
+    conf_threshold = float(request.form.get("conf_threshold", 0.3))
+    args_dict = {"file_path": file_path, "conf_threshold": conf_threshold}
+    print(args_dict)
+    # Perform detection (replace with actual detection logic)
+    result_path = detect_video(args_dict)  # Your detection logic here
+    print("done detect video")
+
+    return send_file(result_path, mimetype='video/mp4')
+
 
 # Query: Get training status
 @app.route('/training-status', methods=['GET'])

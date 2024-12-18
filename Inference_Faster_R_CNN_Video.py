@@ -9,7 +9,7 @@ import numpy as np
 
 def get_args():
     parser = argparse.ArgumentParser(description="Faster RCNN's inference for video")
-    parser.add_argument("--video_path", "-v", type=str, default="./test_2.mp4", help="Path to a video")
+    parser.add_argument("--video_path", "-v", type=str, default="./Bird_Flying_Animation.mp4", help="Path to a video")
     parser.add_argument("--out_path", "-o", type=str, default="./result.mp4", help="Path to output video")
     parser.add_argument("--checkpoint_path", "-c", type=str, default="trained_models/best.pt")
     parser.add_argument("--conf_threshold", "-t", type=float, default=0.5, help="Confident threshold")
@@ -19,6 +19,20 @@ def get_args():
 
 
 def train(args):
+    print("args: ", args)
+    print(type(args))
+    if type(args) != argparse.Namespace:
+        parser = argparse.ArgumentParser(description="Faster RCNN's inference for image")
+        file_path = args["file_path"]
+        conf_threshold = args["conf_threshold"]
+        parser.add_argument("--video_path", "-i", type=str, default=f"{file_path}", help="Path to an image")
+        parser.add_argument("--out_path", "-o", type=str, default="./result.mp4", help="Path to output video")
+        parser.add_argument("--checkpoint_path", "-c", type=str, default="trained_models/best.pt")
+        parser.add_argument("--conf_threshold", "-t", type=float, default=f"{conf_threshold}",
+                            help="Confident threshold")
+
+        args = parser.parse_args()
+
     classes = ['background', 'aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus', 'car', 'cat', 'chair',
                'cow', 'diningtable', 'dog', 'horse', 'motorbike', 'person', 'pottedplant', 'sheep', 'sofa',
                'train', 'tvmonitor']
@@ -38,7 +52,7 @@ def train(args):
     cap = cv2.VideoCapture(args.video_path)
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-    writer = cv2.VideoWriter(args.out_path, cv2.VideoWriter_fourcc(*"mp4"), int(cap.get(cv2.CAP_PROP_FPS)),
+    writer = cv2.VideoWriter(args.out_path, cv2.VideoWriter_fourcc("m", "p", "4", "v"), int(cap.get(cv2.CAP_PROP_FPS)),
                           (width, height))
     while cap.isOpened():
         flag, ori_frame = cap.read()
@@ -60,9 +74,7 @@ def train(args):
     cap.release()
     writer.release()
 
-
-
-
+    return args.out_path
 
 
 if __name__ == '__main__':

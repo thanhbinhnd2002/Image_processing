@@ -15,11 +15,7 @@ const TrainingForm = () => {
     };
 
     // Handle file input change
-    const handleFileChange = (e) => {
-        setImage(e.target.files[0]);
-        setResultImage(null); // Reset result image when a new file is selected
-        setStatus(""); // Reset status when a new file is selected
-    };
+
 
     // Start training
     const startTraining = async () => {
@@ -29,34 +25,6 @@ const TrainingForm = () => {
             setMessage(response.data.status);
         } catch (error) {
             setMessage("Error starting training");
-            console.error(error);
-        }
-    };
-
-    // Perform detection
-    const startDetection = async () => {
-        if (!image) {
-            alert("Please select an image.");
-            return;
-        }
-
-        setStatus("Detecting..."); // Show detecting status
-
-        const formData = new FormData();
-        formData.append("file", image);
-        formData.append("conf_threshold", params.conf_threshold); // Append confidence threshold
-
-        try {
-            const response = await axios.post("http://localhost:5000/detect", formData, {
-                headers: { "Content-Type": "multipart/form-data" },
-                responseType: "blob", // Expect a blob (image file) as response
-            });
-
-            const url = URL.createObjectURL(new Blob([response.data])); // Create a URL for the result image
-            setResultImage(url); // Set the result image
-            setStatus("Detection completed successfully!"); // Update status
-        } catch (error) {
-            setStatus("Error during detection."); // Update status on error
             console.error(error);
         }
     };
@@ -111,45 +79,6 @@ const TrainingForm = () => {
                 <button onClick={startTraining} style={{ marginTop: "10px" }}>
                     Start Training
                 </button>
-            </div>
-
-            {/* Detection Parameters */}
-            <div style={{ marginTop: "20px" }}>
-                <h3>Image Detection</h3>
-                <label>
-                    Select an image:
-                    <input type="file" onChange={handleFileChange} accept="image/*" />
-                </label>
-                <div style={{ display: "flex", marginTop: "10px", justifyContent: 'center' }}>
-                    <p>Confidence Threshold: </p>
-                    <input
-                        name="conf_threshold"
-                        type="number"
-                        step="0.1"
-                        value={params.conf_threshold}
-                        onChange={handleParamChange}
-                        placeholder="Confidence Threshold"
-                    />
-                </div>
-                <button onClick={startDetection} style={{ marginTop: "10px" }}>
-                    Start Detection
-                </button>
-            </div>
-
-            {/* Messages */}
-            <p><strong>Training Status:</strong> {message}</p>
-            <p><strong>Detection Status:</strong> {status}</p>
-
-            {/* Display Input Image */}
-            <div>
-                <h3>Input Image</h3>
-                {image && <img src={URL.createObjectURL(image)} alt="Input" style={{ maxWidth: "100%" }} />}
-            </div>
-
-            {/* Display Result Image */}
-            <div>
-                <h3>Result Image</h3>
-                {resultImage && <img src={resultImage} alt="Result" style={{ maxWidth: "100%" }} />}
             </div>
         </div>
     );
