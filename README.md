@@ -60,7 +60,7 @@ image-processing-project/
 ├── scripts/               # Các script huấn luyện, dự đoán, đánh giá
 │   ├── train.py
 │   ├── inference.py
-│   └── evaluate.py
+│
 ├── tensorboard      # lưu quá trình train
 └── README.md              # Tài liệu dự án
 ```
